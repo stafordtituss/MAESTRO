@@ -73,6 +73,31 @@ authority. Data poisoning and model inversion use the same verdict words, but
 their evidence concerns input integrity and disclosure, and they are kept as
 separate tests rather than treated as authorization checks.
 
+### OWASP crosswalk
+
+[`src/data/owasp-agentic-threats.ts`](../src/data/owasp-agentic-threats.ts)
+lists the threat IDs of the OWASP Agentic Security Initiative taxonomy. It
+follows *Agentic AI - Threats and Mitigations* version 1.1 (December 2025),
+which has T1-T17; version 1.0 had T1-T15.
+[`src/data/validation/owasp-crosswalk.ts`](../src/data/validation/owasp-crosswalk.ts)
+maps each family to those IDs. This mapping is proposed by this module; it
+is not an OWASP or CSA mapping.
+
+| Family | Primary | Related | LLM Top 10 (2025) |
+| --- | --- | --- | --- |
+| DID spoofing | T9 | | |
+| VC replay | T9 | T3 | |
+| Ephemeral agent abuse | T4 | T8, T13 | |
+| Delegation escalation | T3, T14 | T8, T16 | |
+| Prompt injection | T6 | T2 | |
+| Data poisoning | | T1 | LLM04 |
+| Model inversion | | | LLM02, LLM07 |
+
+The agentic taxonomy defers dataset poisoning and information disclosure to
+the OWASP Top 10 for LLM Applications, so those two families map there. The
+taxonomy file is independent of the validation module and could also be used
+to tag model-generated threats (issue #4).
+
 Layer ids are the ones in [`src/data/maestro.ts`](../src/data/maestro.ts).
 `parseScenarioSuite` rejects a scenario whose layers are not mapped to its
 family.
